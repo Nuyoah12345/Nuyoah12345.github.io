@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倒计时案例</title>
+    <style>
+        body {
+            background-color: #ccc;
+        }
+
+        div {
+            margin: 200px;
+            text-align: center;
+        }
+
+        span {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            font-size: 20px;
+            color: #fff;
+            text-align: center;
+            line-height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <span class="day"></span>
+        <span class="hour"></span>
+        <span class="minute"></span>
+        <span class="second"></span>
+    </div>
+
+
+    <script>
+        var span1 = document.querySelector('.hour');
+        var span2 = document.querySelector('.minute');
+        var span3 = document.querySelector('.second');
+        var span4 = document.querySelector('.day');          //获取4个盒子以便下面使用
+
+
+        var inputTime = +new Date('2022-4-10');       //全局变量，函数内也可以使用
+        countDown();              //先执行一次该函数解决刷新第一秒有空白的问题
+        function countDown() {
+            var nowTime = +new Date();
+            var time = (inputTime - nowTime) / 1000;
+            var s = parseInt(time % 60);
+            s = s < 10 ? '0' + s : s;
+            span3.innerHTML = s;                 //得到的秒数给span3盒子
+            var m = parseInt(time / 60 % 60);
+            m = m < 10 ? '0' + m : m;
+            span2.innerHTML = m;                //分钟给span2
+            var h = parseInt(time / 60 / 60 % 24);
+            h = h < 10 ? '0' + h : h;
+            span1.innerHTML = h;                  // 小时给span1
+            var d = parseInt(time / 60 / 60 / 24);
+            span4.innerHTML = d + '天';
+        }
+        setInterval(countDown, 1000)           //隔了一秒才刷新，会有空白问题
+    </script>
+</body>
+
+</html>
